@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+
+	<title>practice</title>
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="../static/css/common.css">
+
+	<!-- SCRIPT -->
+	<script type="text/javascript" src="../static/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="../static/js/common.js"></script>
+</head>
+
+<body>
+
+	<div id="textList">
+		<p><b>English</b> is a <a href="/wiki/West_Germanic_language" class="mw-redirect" title="West Germanic language">West Germanic language</a> that was first spoken in <a href="/wiki/Anglo-Saxon_England" class="mw-redirect" title="Anglo-Saxon England">early medieval England</a> and eventually became a global <i><a href="/wiki/Lingua_franca" title="Lingua franca">lingua franca</a></i>.<sup id="cite_ref-FOOTNOTECrystal2003a6_4-0" class="reference"><a href="#cite_note-FOOTNOTECrystal2003a6-4">[4]</a></sup><sup id="cite_ref-FOOTNOTEWardhaugh201055_5-0" class="reference"><a href="#cite_note-FOOTNOTEWardhaugh201055-5">[5]</a></sup> It is named after the <a href="/wiki/Angles" title="Angles">Angles</a>, one of the <a href="/wiki/Germanic_tribes" class="mw-redirect" title="Germanic tribes">Germanic tribes</a> that migrated to the area of <a href="/wiki/Great_Britain" title="Great Britain">Great Britain</a> that later took their name, as <a href="/wiki/England" title="England">England</a>. Both names derive from <a href="/wiki/Anglia_(peninsula)" title="Anglia (peninsula)">Anglia</a>, a peninsula in the <a href="/wiki/Baltic_Sea" title="Baltic Sea">Baltic Sea</a>. The language is closely related to <a href="/wiki/Frisian_languages" title="Frisian languages">Frisian</a> and <a href="/wiki/Low_German" title="Low German">Low Saxon</a>, and its vocabulary has been significantly influenced by other <a href="/wiki/Germanic_languages" title="Germanic languages">Germanic languages</a>, particularly <a href="/wiki/Old_Norse" title="Old Norse">Norse</a> (a <a href="/wiki/North_Germanic_languages" title="North Germanic languages">North Germanic language</a>), and to a greater extent by <a href="/wiki/Latin" title="Latin">Latin</a> and <a href="/wiki/French_language" title="French language">French</a>.<sup id="cite_ref-Wolff_6-0" class="reference"><a href="#cite_note-Wolff-6">[6]</a></sup>
+		</p>
+	</div>
+
+	<ul class="list">
+		<li>aaa</li>
+		<li>bbb</li>
+		<li>ccc</li>
+	</ul>
+
+	<script>
+	let entireText = document.getElementsByTagName('body')[0].innerText;
+	let splitedText = entireText.split(' ');
+	let countText = new Object();
+	let TextArray = new Array();
+	let str = new String();
+
+	for(let i=0; i<splitedText.length ; i++){
+		let word = splitedText[i].toLowerCase();
+		if(countText[word] === undefined){
+			countText[word] = 1;
+		} else {
+			countText[word] = countText[word] + 1;
+		}
+	}
+
+	for(let name in countText){
+		TextArray.push([name, countText[name]]);
+	}
+
+	TextArray.sort(function(a,b){
+		return b[1] - a[1];
+	});
+
+	for(let i=0; i<TextArray.length; i++){
+		str = str + TextArray[i][0] + ' : ' + TextArray[i][1] + '\n';
+	}
+
+	console.log(str)
+
+	</script>
+</body>
+
+</html>
