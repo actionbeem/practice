@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+
+	<title>practice</title>
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="../static/css/common.css">
+
+	<!-- SCRIPT -->
+	<script type="text/javascript" src="../static/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="../static/js/common.js"></script>
+</head>
+
+<body>
+
+    <div class="column-wrap">
+      <div class="box">1</div>
+      <div class="middle">2</div>
+      <div class="last">3</div>
+      <span>4</span>
+    </div>
+
+    <style>
+    .column-wrap .box { display:inline-block; width:50px; height:50px; background-color:#eee; margin-bottom:10px;}
+    .column-wrap .box.active { margin-left:300px; transition:all .2s;  }
+    :not(span)  { color:green}
+    
+    </style>
+
+    <script>
+    $('.box').click(function(){
+      $(this).addClass('active')
+    })
+    </script>
+
+</body>
+
+</html>
