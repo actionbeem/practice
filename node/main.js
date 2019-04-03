@@ -13,7 +13,6 @@ var app = http.createServer(function(request,response){
     console.log(pathname)
     if(pathname === '/'){
       if(queryData.id === undefined){
-        
         fs.readdir('./data', function(error, filelist){
           var title = 'Welcome'
           var description = 'Hello, Node.js';
