@@ -12,19 +12,39 @@ let app = http.createServer((request, response) => {
       fs.readdir(`data/`, (err, filelist) => {
         let title = 'Welcome';
         let description = 'hello world'
+        let control = `<a href="/create">create</a>`
 
         response.writeHead(200);
-        response.end(template.html(title, description, filelist));
+        response.end(template.html(title, description, filelist, control));
       })
     } else {
       fs.readdir(`data/`, (err, filelist) => { 
         fs.readFile(`data/${queryData.id}`, 'utf8', (err, description) => {
           let title = queryData.id;
+          let control = `<a href="/create">create</a><a href="/update">update</a>`
           response.writeHead(200);
-          response.end(template.html(title, description, filelist));
+          response.end(template.html(title, description, filelist, control));
         })
       })
     }
+  } else if (pathname === '/create'){
+    fs.readdir(`data/`, (err, filelist) => {
+      let title = 'Create'
+      let form = `
+        <form action="/create_process" method="post">
+          <input type="text" name="title">
+          <input type="text" name="description">
+          <input type="submit">
+        </form>
+      `
+      let control = `<a href="/create">create</a>`
+
+      response.writeHead(200)
+      response.end(template.html(title, form, filelist, control))
+    })
+
+  } else if (pathname === '/create_process'){
+
   } else {
     response.writeHead(404);
     response.end('not found');
@@ -33,15 +53,16 @@ let app = http.createServer((request, response) => {
 });
 
 let template = {
-  list(filelist){
+  list(filelist, control){
     let body = '<ul>'
     filelist.forEach(file => {
       body += `<li><a href="/?id=${file}">${file}</a></li>`
     })
     body += '</ul>'
+    body += control;
     return body;
   },
-  html(title, description, filelist){
+  html(title, description, filelist, control){
     return `
       <!DOCTYPE html>
       <html lang="en">
@@ -51,10 +72,10 @@ let template = {
       </head>
       <body>
         <h1><a href="/">WEB</a></h1>
-        ${this.list(filelist)}
+        ${this.list(filelist, control)}
         <div>
           <h2>${title}</h2>
-          <p>${description}</p>
+          ${description}
         </div>
       </body>
       </html>
