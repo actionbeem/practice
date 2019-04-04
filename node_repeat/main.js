@@ -1,19 +1,19 @@
-let http = require('http');
-let fs = require('fs');
-let url = require('url');
-let qs = require('querystring')
+const http = require('http');
+const fs = require('fs');
+const url = require('url');
+const qs = require('querystring')
 
-let app = http.createServer((request, response) => {
-  let _url = request.url;
-  let queryData = url.parse(_url, true).query;
-  let pathname = url.parse(_url, true).pathname;
+const app = http.createServer((request, response) => {
+  const _url = request.url;
+  const queryData = url.parse(_url, true).query;
+  const pathname = url.parse(_url, true).pathname;
 
   if(pathname === '/'){
     if(queryData.id === undefined){
       fs.readdir(`data/`, (err, filelist) => {
-        let title = 'Welcome';
-        let description = 'hello world'
-        let control = `<a href="/create">create</a>`
+        const title = 'Welcome';
+        const description = 'hello world'
+        const control = `<a href="/create">create</a>`
 
         response.writeHead(200);
         response.end(template.html(title, description, filelist, control));
@@ -21,8 +21,15 @@ let app = http.createServer((request, response) => {
     } else {
       fs.readdir(`data/`, (err, filelist) => { 
         fs.readFile(`data/${queryData.id}`, 'utf8', (err, description) => {
-          let title = queryData.id;
-          let control = `<a href="/create">create</a><a href="/update?id=${title}">update</a>`
+          const title = queryData.id;
+          const control = `
+            <a href="/create">create</a>
+            <a href="/update?id=${title}">update</a>
+            <form action="/delete" method="post">
+              <input type="hidden" name="id" value="${title}">
+              <input type="submit" value="delete">
+            </form>
+          `
           response.writeHead(200);
           response.end(template.html(title, description, filelist, control));
         })
@@ -30,15 +37,15 @@ let app = http.createServer((request, response) => {
     }
   } else if (pathname === '/create'){
     fs.readdir(`data/`, (err, filelist) => {
-      let title = 'Create'
-      let form = `
+      const title = 'Create'
+      const form = `
         <form action="/create_process" method="post">
           <input type="text" name="title">
           <textarea name="description"></textarea>
           <input type="submit">
         </form>
       `
-      let control = `<a href="/create">create</a>`
+      const control = `<a href="/create">create</a>`
 
       response.writeHead(200)
       response.end(template.html(title, form, filelist, control))
@@ -50,9 +57,9 @@ let app = http.createServer((request, response) => {
       body += data;
     })
     request.on('end', () => {
-      let post = qs.parse(body);
-      let title = post.title;
-      let description = post.description;
+      const post = qs.parse(body);
+      const title = post.title;
+      const description = post.description;
       fs.writeFile(`data/${title}`, description, 'utf8', err => {
         response.writeHead(302, { Location: `/`});
         response.end();
@@ -60,9 +67,9 @@ let app = http.createServer((request, response) => {
     })
   } else if (pathname === '/update'){
     fs.readdir(`data/`, (err, filelist) => {
-      let title = queryData.id;
+      const title = queryData.id;
       fs.readFile(`data/${title}`, 'utf8', (err, description) => {
-        let form = `
+        const form = `
           <form action="/update_process" method="post">
             <input type="hidden" name="id" value="${title}">
             <input type="text" name="title" value="${title}">
@@ -70,7 +77,7 @@ let app = http.createServer((request, response) => {
             <input type="submit">
           </form>
         `
-        let control = `<a href="/create">create</a><a href="/update?id=${title}">update</a>`
+        const control = `<a href="/create">create</a><a href="/update?id=${title}">update</a>`
 
         response.writeHead(200)
         response.end(template.html(title, form, filelist, control))
@@ -83,10 +90,10 @@ let app = http.createServer((request, response) => {
       body += data;
     })
     request.on('end', () => {
-      let post = qs.parse(body);
-      let id = post.id; 
-      let title = post.title;
-      let description = post.description;
+      const post = qs.parse(body);
+      const id = post.id; 
+      const title = post.title;
+      const description = post.description;
       fs.rename(`data/${id}`, `data/${title}`, err => {
         fs.writeFile(`data/${title}`, description, 'utf8', err => {
           response.writeHead(302, { Location: `/?id=${title}`})
@@ -94,6 +101,21 @@ let app = http.createServer((request, response) => {
         })
       })
     })
+  } else if (pathname === '/delete'){
+    let body = '';
+    request.on(`data`, data => {
+      body += data;
+    })
+    request.on(`end`, () => {
+      const post = qs.parse(body)
+      const id = post.id;
+      fs.unlink(`data/${id}`, err => {
+        response.writeHead(302, {Location : `/`});
+        response.end();
+      })     
+    })
+
+
   } else {
     response.writeHead(404);
     response.end('not found');
@@ -101,7 +123,7 @@ let app = http.createServer((request, response) => {
 
 });
 
-let template = {
+const template = {
   list(filelist, control){
     let body = '<ul>'
     filelist.forEach(file => {
