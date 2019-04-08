@@ -31,12 +31,11 @@ var app = http.createServer(function(request,response){
           response.end(html);
         });
       } else {
-        console.log('query : ' , queryData)
         db.query(`SELECT * FROM topic`, (error, topics) => {
           if(error){
             throw error;
           }
-          db.query(`SELECT * FROM topic WHERE id=?`, [queryData.id], function(error2, topic){
+          db.query(`SELECT * FROM topic LEFT JOIN author ON topic.author_id=author.id WHERE topic.id=?`, [queryData.id], function(error2, topic){
             if(error2){
               throw error;
             }
@@ -44,7 +43,11 @@ var app = http.createServer(function(request,response){
             var title = topic[0].title;
             var description = topic[0].description;
             var list = template.list(topics);
-            var html = template.HTML(title, list, `<h2>${title}</h2>${description}`,
+            var html = template.HTML(title, list, 
+              `<h2>${title}</h2>
+               ${description}
+               by ${topic[0].name}
+              `,
              `<a href="/create">create</a>
               <a href="/update?id=${queryData.id}">update</a>
               <form action="delete_process" method="post">
@@ -162,16 +165,17 @@ var app = http.createServer(function(request,response){
     } else if(pathname === '/delete_process'){
       var body = '';
       request.on('data', function(data){
-          body = body + data;
+        body = body + data;
       });
       request.on('end', function(){
-          var post = qs.parse(body);
-          var id = post.id;
-          var filteredId = path.parse(id).base;
-          fs.unlink(`data/${filteredId}`, function(error){
-            response.writeHead(302, {Location: `/`});
-            response.end();
-          })
+        var post = qs.parse(body);
+        db.query('DELETE FROM topic WHERE id=?', [post.id], function(error, result){
+          if(error){
+            throw error
+          }
+          response.writeHead(302, {Location: `/`});
+          response.end();
+        })
       });
     } else {
       response.writeHead(404);
