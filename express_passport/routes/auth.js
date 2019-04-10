@@ -8,9 +8,16 @@ var template = require('../lib/template.js');
 
 
 router.get('/login', function(request, response){
+  var fmsg = request.flash();
+  var feedback = '';
+  console.log('failure :', fmsg.error)
+  if(fmsg.error){
+    feedback = fmsg.error[0]
+  }
   var title = 'WEB - login';
   var list = template.list(request.list);
   var html = template.HTML(title, list, `
+    <div style="color:red">${feedback}</div>
     <form action="/auth/login_process" method="post">
       <p><input type="text" name="email" placeholder="email"></p>
       <p>

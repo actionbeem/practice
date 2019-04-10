@@ -23,18 +23,16 @@ app.use(session({
 }))
 app.use(flash());
 
-app.get('/flash', function(req, res){
-  // Set a flash message by passing the key, followed by the value, to req.flash().
-  req.flash('msg', 'Flash is back!!')
-  res.send('flash')
-});
+// app.get('/flash', function(req, res){
+//   req.flash('msg', 'Flash is back!!')
+//   res.send('flash')
+// });
 
-app.get('/flash-display', function(req, res){
-  // Get an array of flash messages by passing the key to req.flash()
-  var fmsg = req.flash();
-  console.log(fmsg)
-  res.send(fmsg)
-});
+// app.get('/flash-display', function(req, res){
+//   var fmsg = req.flash();
+//   console.log(fmsg)
+//   res.send(fmsg)
+// });
 
 var authData = {
   email: 'test@gmail.com',
@@ -90,6 +88,7 @@ app.post('/auth/login_process',
     successRedirect: '/',
     failureRedirect: '/auth/login',
     failureFlash: true,
+    successFlash: true,
   }));
 
 
