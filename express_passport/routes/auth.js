@@ -5,11 +5,7 @@ var fs = require('fs');
 var sanitizeHtml = require('sanitize-html');
 var template = require('../lib/template.js');
 
-var authData = {
-  email: 'test@gmail.com',
-  password: '1111',
-  nickname: 'tester'
-}
+
 
 router.get('/login', function(request, response){
   var title = 'WEB - login';

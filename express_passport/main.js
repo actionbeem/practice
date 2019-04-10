@@ -18,6 +18,12 @@ app.use(session({
   store: new FileStore(),
 }))
 
+var authData = {
+  email: 'test@gmail.com',
+  password: '1111',
+  nickname: 'tester'
+}
+
 var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
 
@@ -27,19 +33,20 @@ passport.use(new LocalStrategy(
     passwordField: 'pwd'    
   },
   function(username, password, done) {
-    console.log('hola :', username, password)
-    /*
-    User.findOne({ username: username }, function (err, user) {
-      if (err) { return done(err); }
-      if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
-      }
-      if (!user.validPassword(password)) {
+    console.log('LocalStrategy :', username, password)
+    if(username === authData.email){
+      console.log(1)
+      if(password === authData.password){
+        console.log(2)
+        return done(null, authData);
+      } else {
+        console.log(3)
         return done(null, false, { message: 'Incorrect password.' });
       }
-      return done(null, user);
-    });
-    */
+    } else {
+      console.log(4)
+      return done(null, false, { message: 'Incorrect username.' });
+    }
   }
 ));  
 
