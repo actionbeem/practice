@@ -7,6 +7,7 @@ var helmet = require('helmet')
 app.use(helmet());
 var session = require('express-session')
 var FileStore = require('session-file-store')(session)
+var flash = require('connect-flash');
 
 
 app.use(express.static('public'));
@@ -20,6 +21,20 @@ app.use(session({
   saveUninitialized: true,
   store: new FileStore()
 }))
+app.use(flash());
+
+app.get('/flash', function(req, res){
+  // Set a flash message by passing the key, followed by the value, to req.flash().
+  req.flash('msg', 'Flash is back!!')
+  res.send('flash')
+});
+
+app.get('/flash-display', function(req, res){
+  // Get an array of flash messages by passing the key to req.flash()
+  var fmsg = req.flash();
+  console.log(fmsg)
+  res.send(fmsg)
+});
 
 var authData = {
   email: 'test@gmail.com',
@@ -73,7 +88,8 @@ passport.use(new LocalStrategy(
 app.post('/auth/login_process',
   passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/auth/login'
+    failureRedirect: '/auth/login',
+    failureFlash: true,
   }));
 
 
