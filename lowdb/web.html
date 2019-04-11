@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://unpkg.com/lodash@4/lodash.min.js"></script>
+  <script src="https://unpkg.com/lowdb@0.17/dist/low.min.js"></script>
+  <script src="https://unpkg.com/lowdb@0.17/dist/LocalStorage.min.js"></script>
+  <script>
+    var adapter = new LocalStorage('db')
+    var db = low(adapter)
+    db.defaults({ topic: [], author: []}).write()
+
+    // db.get('author').push({
+    //   id:1,
+    //   name:'jackson',
+    //   profile:'developer',
+    // }).write();
+
+    // db.get('topic').push({
+    //   id:1,
+    //   title: 'lowdb',
+    //   description: 'lowdb .... ',
+    //   author: 1,
+    // }).write();
+
+    // db.get('topic').push({
+    //   id:2,
+    //   title: 'mysql',
+    //   description: 'mysql .... ',
+    //   author: 1,
+    // }).write();
+    
+    // console.log(
+    //   db.get('topic')
+    //     .find({ id:2 })
+    //     .value()
+    // )
+
+    // db.get('topic')
+    //   .find({id:2})
+    //   .assign({title:'MySql & MariaDB'})
+    //   .write();
+
+    db.get('topic')
+      .remove({id:2})
+      .write();
+
+  </script>
+</head>
+<body>
+  <p>aaa</p>
+</body>
+</html>

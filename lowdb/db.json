@@ -1,1 +1,23 @@
-{}
+{
+  "topic": [
+    {
+      "id": 1,
+      "title": "lowdb",
+      "description": "lowdb .... ",
+      "author": 1
+    },
+    {
+      "id": 1,
+      "title": "lowdb",
+      "description": "lowdb .... ",
+      "author": 1
+    }
+  ],
+  "author": [
+    {
+      "id": 1,
+      "name": "jackson",
+      "profile": "developer"
+    }
+  ]
+}
