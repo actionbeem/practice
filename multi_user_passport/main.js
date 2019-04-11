@@ -8,6 +8,7 @@ app.use(helmet());
 var session = require('express-session')
 var FileStore = require('session-file-store')(session)
 var flash = require('connect-flash');
+var db = require('./lib/db')
 
 
 app.use(express.static('public'));
@@ -34,10 +35,8 @@ app.post('/auth/login_process',
   }));
 
 app.get('*', function (request, response, next) {
-  fs.readdir('./data', function (error, filelist) {
-    request.list = filelist;
-    next();
-  });
+  request.list = db.get('topics').value();
+  next();
 });
 
 var indexRouter = require('./routes/index');
