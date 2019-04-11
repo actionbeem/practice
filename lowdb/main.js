@@ -1,6 +1,6 @@
+const shortid = require('shortid');
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
-
 const adapter = new FileSync('db.json')
 const db = low(adapter)
 
@@ -37,11 +37,25 @@ db.defaults({ topic: [], author: []}).write()
 //   .assign({title:'MySql & MariaDB'})
 //   .write();
 
+// db.get('topic')
+//   .remove({id:2})
+//   .write();
+
+var sid = shortid.generate();
+db.get('author')
+  .push({
+    id: sid,
+    name: 'aaa',
+    profile: 'scientist'
+  }).write();
+
 db.get('topic')
-  .remove({id:2})
-  .write();
-
-
+  .push({
+    id: shortid.generate(),
+    title: 'PostSql',
+    description: 'PostSal....',
+    author:sid
+  }).write();
 
 
 
