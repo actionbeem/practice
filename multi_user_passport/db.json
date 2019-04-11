@@ -11,6 +11,12 @@
       "email": "test02@gmail.com",
       "password": "1111",
       "displayName": "tester02"
+    },
+    {
+      "id": "SiysT--aA",
+      "email": "test03@gmail.com",
+      "password": "$2b$10$1FFrxzV4w7G91tqjgfGZ9OghMna6h0oNlpAUnk/jMmvjua9ApJGs.",
+      "displayName": "tester03"
     }
   ],
   "topics": [
