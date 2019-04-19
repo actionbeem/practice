@@ -24,4 +24,6 @@ ul { list-style:none; margin:0; padding:0; }
 p { margin:0; }
 input, textarea { outline-width:0; border:0; font-size:14px; padding:14px 18px; box-sizing:border-box; }
 .clear:after { content:""; display:block; clear:both; }
+.fl-l { float:left; }
+.fl-r { float:right; }
 </style>

@@ -8,8 +8,12 @@
       </div>
     </form>
     <ul>
-      <li class="todoItem" v-for="todo in todos" :key="todo.id">
-        <p>{{ todo.title }}</p>
+      <li class="todoItem clear" v-for="todo in todos" :key="todo.id">
+        <div class="fl-l">
+          <i class="far fa-check-circle"></i>
+          <input type="text" :value="todo.title" readonly>
+        </div>
+        <i class="far fa-trash-alt" @click="deleteItem(todo.id)"></i>
       </li>
     </ul>
   </div>
@@ -19,13 +23,22 @@
 export default {
   created () {
     this.$http.get('/api/todos')
-    .then((response) => {
-      console.log(response.data)
-      this.todos = response.data
-    });
+      .then((response) => {
+        this.todos = response.data
+      });
   },
   methods: {
-      
+    deleteItem(todoId){
+      this.$http.post('/api/todos/delete',{
+        id: todoId,
+      })
+      .then((response) => {
+        // this.todos = response.data
+      })
+      .catch(error => {
+        console.log('error :', error)
+      })
+    }
   },
   data () {
     return {
@@ -42,4 +55,8 @@ export default {
 .writeForm [type="text"] { width:80%; float:left; font-size:14px; background-color:rgb(255, 255, 255); border-radius:3px; color:#333; box-shadow:inset 1px 1px rgba(0,0,0,0.1)}
 .writeForm [type="text"]::placeholder { color:#ccc; }
 .writeForm [type="submit"] { width:17%; float:right; border-radius:3px; background-color:#333; color:#fff; }
+.todoItem input { padding:0; margin-left:7px; }
+.fa-check-circle { color:#ccc; cursor:pointer; }
+.fa-check-circle.checked { color:cornflowerblue;}
+.fa-trash-alt { float:right; margin-top:2px; cursor:pointer; }
 </style>
