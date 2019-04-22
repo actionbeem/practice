@@ -1,6 +1,7 @@
 <template>
   <div class="todoList">
-    <h1 class="title">Todo List</h1>
+    <h1 class="title">I have so many thing have to do.</h1>
+    <p class="sub-tit">Let's write it down here!</p>
     <div class="writeForm">
       <div class="clear">
         <input type="text" name="writeInput" placeholder="Write your todolist" v-model="writeInput" @keyup.enter="writeItem">
@@ -9,17 +10,19 @@
       </div>
     </div>
     <ul>
-      <li class="todoItem clear" v-for="todo in todoList" :key="todo.id">
-        <div class="fl-l">
-          <i class="far fa-check-circle" :class="{ active: todo.completed }" @click="completeTodo(todo.id)"></i>
-          <input type="text" :value="todo.title" readonly>
-        </div>
-        <div class="fl-r">
-          <i class="far fa-edit" @click="editItem(todo.title, todo.id)"></i>
-          <i class="far fa-trash-alt" @click="deleteItem(todo.id)"></i>
-        </div>
-      </li>
-    </ul>
+      <transition-group name="todolist">
+        <li class="todoItem clear" v-for="todo in todoList" :key="todo.id">
+          <div class="fl-l">
+            <i class="far fa-check-circle" :class="{ active: todo.completed }" @click="completeTodo(todo.id)"></i>
+            <input type="text" :value="todo.title" readonly>
+          </div>
+          <div class="fl-r">
+            <i class="far fa-edit" @click="editItem(todo.title, todo.id)"></i>
+            <i class="far fa-trash-alt" @click="deleteItem(todo.id)"></i>
+          </div>
+        </li>
+      </transition-group>
+    </ul> 
     <div class="bottom clear">
       <div class="total">
         <p>할 일 : <span class="count">{{ totalItem.total }}</span></p> , 
@@ -58,7 +61,7 @@ export default {
         .catch(error => console.log('error :', error))
         this.clearInput();
       } else {
-        alert('please type your todolist')
+        alert('please write your todolist')
       }
     },
     deleteItem(todoId){
@@ -89,14 +92,19 @@ export default {
       this.editTodo = true;
     },
     editComplete(){
-      this.$http.post('/api/todos/edit',{
-        todoName : this.writeInput,
-        todoId : this.editTargetId
-      })
-      .then(response => this.$store.dispatch('FETCH_LIST'))
-      .catch(error => console.log('error :', error))
-      this.clearInput();
-      this.editTodo = false;      
+      if(this.writeInput){
+        this.$http.post('/api/todos/edit',{
+          todoName : this.writeInput,
+          todoId : this.editTargetId
+        })
+        .then(response => this.$store.dispatch('FETCH_LIST'))
+        .catch(error => console.log('error :', error))
+        this.clearInput();
+        this.editTodo = false;  
+      } else {
+        alert(`You have not written anything.`)
+      }
+    
     }
   },
 }
@@ -104,6 +112,8 @@ export default {
 
 <style scoped>
 .todoList { width:500px; margin:15px auto; }
+.todoList h1 { font-size:27px; margin:0 0 7px 0;  }
+.todoList .sub-tit { font-size:17px; margin-bottom:25px; color:#999;}
 .todoItem { text-align:left; border-radius:3px; box-shadow:0 5px 15px rgba(0,0,0,0.07); margin-bottom:13px; font-size:14px; color:#333; padding:14px 18px; background-color:#fff; box-sizing:border-box;}
 .writeForm { margin-bottom:50px; }
 .writeForm [type="text"] { width:80%; float:left; font-size:14px; background-color:rgb(255, 255, 255); border-radius:3px; color:#333; box-shadow:inset 1px 1px rgba(0,0,0,0.1)}
@@ -111,7 +121,7 @@ export default {
 .writeForm [type="button"] { width:17%; float:right; border-radius:3px;  cursor:pointer; }
 .writeForm .btn-edit { background-color:rgb(245, 174, 43); color:#fff; }
 .writeForm .btn-write { background-color:rgb(32, 199, 135); color:#fff; }
-.todoItem input { padding:0; margin-left:7px; }
+.todoItem input { width:360px; padding:0; margin-left:7px; }
 .fa-check-circle { color:#ccc; cursor:pointer; }
 .fa-check-circle.active { color:rgb(32, 199, 135);}
 .fa-edit { cursor:pointer; }
@@ -122,4 +132,7 @@ export default {
 .bottom .btn-clean { float:right; display:inline-block; border:1px solid #999; color:#666; border-radius:3px; font-size:14px; padding:8px 12px; cursor:pointer; }
 .bottom .total p { display:inline-block; font-size:14px; line-height:35px;}
 
+.todolist-enter-active { transition: all .3s ease; }
+.todolist-leave-active { transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0); }
+.todolist-enter, .todolist-leave-to { transform: translateY(10px); opacity: 0; }
 </style>
