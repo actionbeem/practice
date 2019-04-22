@@ -9,19 +9,40 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/write', (req, res, next) => {
-  console.log(req.body)
   let item = req.body;
-  db.query(`INSERT INTO todo (title,description,created) VALUES(?,'', NOW())`, [item.todoName] , (err, todos) => {
-    // res.redirect(`/todos`)
+  db.query(`INSERT INTO todo (title,completed,created) VALUES(?,false, NOW())`, [item.todoName] , (err, todos) => {
     res.send()
   })
 });
 
 router.post('/delete', (req, res, next) => {
   let target = req.body;
-  console.log('t id: ',target.id)
   db.query(`DELETE FROM todo WHERE id=?`,[target.id], (err, result) => {
-    res.redirect(`/todos`)
+    res.send()
+  })
+});
+
+router.post('/delete_all', (req, res, next) => {
+  db.query(`DELETE FROM todo`, (err, result) => {
+    res.send()
+  })
+});
+
+router.post('/complete', (req, res, next) => {
+  let target = req.body;
+  db.query('SELECT completed FROM todo WHERE id=?', [target.id], (err, item ) => {
+    let isCompleted = item[0].completed;
+    isCompleted = !isCompleted
+    db.query(`UPDATE todo SET completed=? WHERE id=?;`,[ isCompleted, target.id], (err, result) => res.send())   
+
+  })
+});
+
+router.post('/edit', (req, res, next) => {
+  let item = req.body;
+  db.query(`UPDATE todo SET title='${item.todoName}' WHERE id='${item.todoId}'
+  `, (err, todos) => {
+    res.send()
   })
 });
 
