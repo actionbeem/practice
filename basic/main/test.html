@@ -34,9 +34,46 @@
     
     </style>
 
-    <script>
+  <script> 
+  class Parent {
+    constructor(name){
+      this.name = name
+    }
+    sum(){
+      console.log(this.name)
+    }
+  }
 
-    </script>
+  class Child extends Parent {
+    constructor() {
+      super('aaab')
+    }
+  }
+
+  let a = new Child()
+  a.sum()
+
+
+  </script>
+
+  <!-- currying-->
+  <script>
+  /*
+  function sum(a,b){
+    return a+b;
+  }
+ 
+  function curry(fn,d){
+    return function(a){
+      console.log(fn(a,d))
+    }
+  }
+
+  let test = curry(sum,10);
+  test(4)
+  */
+  </script>
+  <!-- //currying-->
 
 </body>
 
