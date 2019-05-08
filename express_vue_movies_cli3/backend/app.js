@@ -9,6 +9,7 @@ const usersRouter = require('./routes/users');
 const movies = require('./routes/movies');
 
 const app = express();
+app.use(require('connect-history-api-fallback')())
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
