@@ -12,7 +12,8 @@ export default {
     var id = this.$route.params.id
     this.$http.get(`/api/movies/${id}`)
     .then((response) => {
-      this.movie = response.data
+      this.movie = response.data;
+      console.log(this.movie)
     })
   },
   data: function () {
