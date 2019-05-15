@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>상세 내용</h1>
-    <p>{{ this.movie[0].name }}</p>
+    <p>{{ this.movie[0].id }}</p>
     <img :src="this.movie[0].poster">
   </div>
 </template>
