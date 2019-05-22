@@ -1,0 +1,66 @@
+{
+  "users": [
+    {
+      "id": "FQLR-Fjd2",
+      "email": "ratm@gmail.com",
+      "password": "1",
+      "nickname": "jack"
+    },
+    {
+      "id": "Rc-K0E4BC",
+      "email": "kjh@gmail.com",
+      "password": "1",
+      "nickname": "kjh"
+    },
+    {
+      "id": "8Zwtj30QY",
+      "email": "aaa@gmail.com",
+      "password": "1",
+      "nickname": "ccc"
+    },
+    {
+      "id": "tYyE15IXJ",
+      "email": "ratm@gmail.com",
+      "password": "1",
+      "nickname": "jack"
+    },
+    {
+      "id": "cVPxch8lg",
+      "email": "nomore@gmail.com",
+      "password": "1",
+      "nickname": "nomore"
+    },
+    {
+      "id": "86FPTRC5y",
+      "email": "boy@gmail.com",
+      "password": "$2b$10$dED1V5ZTMs49iC2z3K2bYu0wbCRZq3YJp5B/TnOXx5bUqM1u3/Sdy",
+      "nickname": "boy"
+    }
+  ],
+  "topics": [
+    {
+      "id": "uv9WkLZyF",
+      "title": "javascripta",
+      "description": "javascript is ...\r\n",
+      "user_id": "Rc-K0E4BC"
+    },
+    {
+      "id": "Wlv2LRzuR",
+      "title": "CSS3",
+      "description": "sadf",
+      "user_id": "Rc-K0E4BC"
+    },
+    {
+      "id": "FfEApao2h",
+      "title": "oath",
+      "description": "oath",
+      "user_id": "FQLR-Fjd2"
+    },
+    {
+      "id": "MMOsgq4j1",
+      "title": "vue is",
+      "description": "sdf",
+      "user_id": "cVPxch8lg"
+    }
+  ]
+}

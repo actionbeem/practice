@@ -1,0 +1,30 @@
+{
+  "users": [
+    {
+      "id": "vneFX2ZPd",
+      "email": "kjh@gmail.com",
+      "password": "1111",
+      "displayName": "action"
+    },
+    {
+      "id": "_8R_5sTOT",
+      "email": "hola@gmail.com",
+      "password": "1111",
+      "displayName": "holaman"
+    },
+    {
+      "id": "RHIdxjbVI",
+      "email": "lyn@gmail.com",
+      "password": "$2b$10$lg1bXr8Mrr98IZqCWM9hpe8afuHQ/mwshg0H5Ztfjyf0A8OFOKZEO",
+      "displayName": "lyn"
+    }
+  ],
+  "topics": [
+    {
+      "id": "Dev7xYLAR",
+      "title": "bbbb",
+      "description": "ccc",
+      "user_id": "_8R_5sTOT"
+    }
+  ]
+}
