@@ -10,6 +10,7 @@ const bcrypt = require('bcrypt');
 
 module.exports = function(passport){
   router.get('/login', function(request, response){
+    console.log('xq')
     var fmsg = request.flash();
     var feedback = '';
     if(fmsg.error){

@@ -35,6 +35,18 @@
       "email": "boy@gmail.com",
       "password": "$2b$10$dED1V5ZTMs49iC2z3K2bYu0wbCRZq3YJp5B/TnOXx5bUqM1u3/Sdy",
       "nickname": "boy"
+    },
+    {
+      "id": "ydbBYtB8j",
+      "email": "aaa",
+      "password": "$2b$10$spbfdnQRRwUdqXE83C/cn.4d7ZZmtyxQlGExpkAYmBKootV4UNqPO",
+      "nickname": "jack"
+    },
+    {
+      "id": "FfXWSyfns",
+      "email": "bbb",
+      "password": "$2b$10$RwoAbspe5qUtsWoDYhnvuOb8FjYobG8cuERTtQTmZJxhzX2xIDZJ2",
+      "nickname": "holalio"
     }
   ],
   "topics": [

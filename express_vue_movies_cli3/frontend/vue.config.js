@@ -11,11 +11,6 @@ module.exports = {
     },
   },
 
-  publicPath: undefined,
-  outputDir: '../backend/public',
-  assetsDir: undefined,
-  runtimeCompiler: undefined,
-  productionSourceMap: undefined,
-  parallel: undefined,
-  css: undefined
+  publicPath: '',
+  outputDir: '../backend/public'
 }
