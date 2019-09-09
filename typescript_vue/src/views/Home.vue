@@ -1,28 +1,26 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
-    <message></message>
-    <children :parentMessage="message"></children>
-    <button @click="changeMessage">메세지를 바꿉니다.</button>
+    <children @counter="counter"></children>
+    <p>
+      부모에서 숫자를 보여줍니다. : {{ count }}
+    </p>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import message from '@/components/message.vue'; // @ is an alias to /src
 import children from '@/components/children.vue'
 
 @Component({
   components: {
-    message,
     children
   },
 })
 export default class Home extends Vue {
-  message: string = 'hello world!!';
-
-  changeMessage(){
-    this.message = 'change'
+  count:number = 0;
+  counter(){
+    this.count++ ;
   }
 }
 </script>
