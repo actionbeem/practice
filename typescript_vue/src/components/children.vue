@@ -1,18 +1,15 @@
 <template>
   <div>
-    <button @click="counter">자식에서 숫자를 증가시킵니다.</button>
+    {{ message }}
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch, Emit } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch, Emit, Model, Inject } from 'vue-property-decorator'
 
 @Component
 export default class Children extends Vue {
-  @Emit()
-  counter(){
-    console.log('count')
-  }
+  @Inject() readonly message!: string;
 }
 
 </script>

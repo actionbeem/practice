@@ -1,15 +1,12 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
-    <children @counter="counter"></children>
-    <p>
-      부모에서 숫자를 보여줍니다. : {{ count }}
-    </p>
+    <children></children>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Provide } from 'vue-property-decorator';
 import children from '@/components/children.vue'
 
 @Component({
@@ -18,9 +15,7 @@ import children from '@/components/children.vue'
   },
 })
 export default class Home extends Vue {
-  count:number = 0;
-  counter(){
-    this.count++ ;
-  }
+  @Provide('message') msg: string = 'provide/inject example';
+
 }
 </script>
