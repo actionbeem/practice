@@ -2,7 +2,7 @@
   <div id="app">
     <app-header/>
     <item-input/>
-    <item></item>
+    <router-view></router-view>
   </div>
 </template>
 

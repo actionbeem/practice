@@ -2,9 +2,9 @@
   <div>
     <h1>TODO LIST</h1>
     <ol class="breadcrumb">
-      <li><a href="#">All</a></li>
-      <li><a href="#">Active</a></li>
-      <li class="active">Clear</li>
+      <li><router-link to="/">All</router-link></li>
+      <li><router-link to="/active">Active</router-link></li>
+      <li class="active"><router-link to="/clear">Clear</router-link></li>
     </ol>
   </div>
 </template>
