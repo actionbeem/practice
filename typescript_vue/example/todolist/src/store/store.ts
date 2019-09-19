@@ -7,7 +7,11 @@ Vue.use(Vuex);
 
 const store: StoreOptions<State> = {
   state: {
-    todoList: [],
+    todoList: [
+      { id: 0, title: 'test01', status: 'active' },
+      { id: 1, title: 'test02', status: 'active' },
+      { id: 2, title: 'test03', status: 'clear' },
+    ],
   },
   mutations: {
     addItem(state, item: Item){
@@ -24,7 +28,13 @@ const store: StoreOptions<State> = {
 
   },
   getters: {
-    
+    allTodoList: (state) => state.todoList,
+    activeTodoList: (state) => {
+      return state.todoList.filter( (item: Item) => item.status === 'active')
+    },
+    clearTodoList: (state) => {
+      return state.todoList.filter( (item: Item) => item.status === 'clear')
+    },
   },
 }
 

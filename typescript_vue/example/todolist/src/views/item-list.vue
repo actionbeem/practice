@@ -7,30 +7,40 @@
 <script lang="ts">
 import { Vue, Component, Watch } from 'vue-property-decorator'
 import item from '@/components/item.vue'
+import { mapGetters } from 'vuex';
 
 @Component({
   components: {
     item
-  }
+  },
+  computed: {
+    ...mapGetters([
+      'allTodoList',
+      'activeTodoList',
+      'clearTodoList'
+    ])
+  },
 })
 export default class ItemList extends Vue {
-  data: any[] = [
-    {id: 0, title: 'test01', status: 'active'},
-    {id: 1, title: 'test02', status: 'active'},
-    {id: 2, title: 'test03', status: 'clear'},
-  ]
+  renderList: any[] = [];
 
-  renderList: any[] = this.data;
+  created(){
+    this.initRenderList(this.$route.params.status)
+  }
+
+  initRenderList(status: 'active' | 'clear'){
+    if (!status){
+      this.renderList = this.allTodoList;
+    } else if(status === 'active') {
+      this.renderList = this.activeTodoList;
+    } else if(status === 'clear') {
+      this.renderList = this.clearTodoList;
+    }
+  }
 
   @Watch('$route.params.status')
-  routeUpdatate(newValue: string){
-    if (!newValue){
-      this.renderList = this.data;
-    } else if(newValue === 'active' || newValue === 'clear') {
-      this.renderList = this.data.slice().filter((item:any) => {
-        return item.status === newValue;
-      })
-    }
+  routeUpdate(newValue: 'active' | 'clear'){
+    this.initRenderList(newValue)
   }
 }
 </script>
