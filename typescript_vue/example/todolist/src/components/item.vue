@@ -13,26 +13,26 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Vue, Component, Prop } from 'vue-property-decorator';
 
 @Component
 export default class Item extends Vue {
-  @Prop() readonly id!: string;
-  @Prop() readonly title!: string;
-  @Prop() readonly status!: 'active' | 'clear';
+  @Prop() public readonly id!: string;
+  @Prop() public readonly title!: string;
+  @Prop() public readonly status!: 'active' | 'clear';
 
-  changeStatus($event: Event){
-    const checked: boolean = $event.target.checked;
+  public changeStatus($event: Event) {
+    const checked: boolean = ($event.target as HTMLInputElement).checked;
 
-    if(checked) {
-      this.$store.commit('changeStatus', {id: this.id, status: 'clear'})
+    if (checked) {
+      this.$store.commit('changeStatus', {id: this.id, status: 'clear'});
     } else {
-      this.$store.commit('changeStatus', {id: this.id, status: 'active'})
+      this.$store.commit('changeStatus', {id: this.id, status: 'active'});
     }
   }
 
-  removeItem(){
-    this.$store.commit('removeItem', this.id)
+  public removeItem() {
+    this.$store.commit('removeItem', this.id);
   }
 }
 </script>
