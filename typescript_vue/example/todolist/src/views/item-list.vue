@@ -42,6 +42,11 @@ export default class ItemList extends Vue {
   routeUpdate(newValue: 'active' | 'clear'){
     this.initRenderList(newValue)
   }
+
+  @Watch('$store.state.todoList', {deep: true})
+  todoListUpdate(){
+    this.initRenderList(this.$route.params.status)
+  }
 }
 </script>
 
