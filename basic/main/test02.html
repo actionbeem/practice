@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+
+  <title>practice</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../static/css/common.css">
+
+  <!-- SCRIPT -->
+  <script type="text/javascript" src="../static/js/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="../static/js/common.js"></script>
+</head>
+
+<body>
+
+  <p>111</p>
+
+  <script>
+let beforeSequence = [];
+let afterSequence = [];
+let sequenceArray = [];
+
+let counter = 0;
+let isChange = false;
+let sequenceLength = null;
+let currentNum = null;
+
+function conwayGenerator (value, line){
+  value = validateValue(value);
+  line = validateLine(line);
+  if(!value || !line) return;
+
+  for(let i=0; i <= 25; i++){
+    if(i === 0){
+      sequenceArray.push([value])
+      beforeSequence = [value];
+    } else {
+      console.log(i , beforeSequence)
+      let result = sequenceMaker(beforeSequence)
+      sequenceArray.push(result)
+      beforeSequence = result
+    }
+  }
+  console.log('sequenceArray : ', sequenceArray)
+  printOutput(line)
+}
+
+function sequenceMaker(sequence) {
+  counter = 0;
+  sequenceLength = sequence.length - 1;
+  afterSequence = [];
+  currentNum = null;
+
+  sequence.forEach((val, idx) => {
+    if (sequenceLength === 0) {
+      afterSequence.push(1, val);
+      return;
+    }
+
+    if (currentNum !== val) {
+      isChange = true;
+    } else {
+      isChange = false;
+    }
+
+    if (isChange && idx !== 0) {
+      afterSequence.push(counter, currentNum);
+      counter = 0;
+    }
+
+    currentNum = val;
+    counter += 1;
+
+    if (idx === sequenceLength) {
+      afterSequence.push(counter, currentNum);
+    }
+  });
+
+  return afterSequence;
+}
+
+function validateValue(value){
+  if(value > 0 && value < 100){
+    return value
+  } else {
+    alert('유효한 값이 아닙니다.')
+    return false;
+  }
+}
+
+function validateLine(line){
+  if(line > 0 && line < 25){
+    return line
+  } else {
+    alert('유효한 값이 아닙니다.')
+    return false;
+  }
+}
+
+function printOutput(line){
+  line = line - 1;
+  alert(sequenceArray[line]) 
+}
+
+// input(R,L)
+conwayGenerator(1, 6)
+
+
+
+  </script>
+</body>
+
+</html>
